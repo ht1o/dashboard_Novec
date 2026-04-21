@@ -1,0 +1,19 @@
+# Environnements et configurations sensibles
+.env
+.venv
+.vscode/
+.idea/
+
+# Fichiers générés par Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Datasets et fichiers volumineux/générés
+datasets_v1/
+datasets_v2/
+*.csv
+*.json
+*.parquet
+*.db
+
