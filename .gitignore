@@ -12,6 +12,7 @@ __pycache__/
 # Datasets et fichiers volumineux/générés
 datasets_v1/
 datasets_v2/
+silver_dataset/
 *.csv
 *.json
 *.parquet

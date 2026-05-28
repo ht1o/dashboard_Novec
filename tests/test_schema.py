@@ -12,13 +12,8 @@ import sys
 import pytest
 import pandas as pd
 from sqlalchemy import text, inspect
-import os
 
-
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Ajoute data_simulation au path
-sys.path.insert(0, os.path.join(ROOT, "data_simulation"))
+sys.path.insert(0, ".")
 from config import get_db_engine
 
 

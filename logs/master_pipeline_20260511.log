@@ -1,0 +1,622 @@
+PS C:\Users\tacht\dashboard360_novec> python .\master_pipeline.py --full-init
+2026-05-13 14:39:11,674 [INFO] master_pipeline — ════════════════════════════════════════════════════════════════════
+2026-05-13 14:39:11,674 [INFO] master_pipeline —   MASTER PIPELINE — Full Init
+2026-05-13 14:39:11,674 [INFO] master_pipeline —   Run: 36dd4fdd | backfill_days=30 | dry_run=False
+2026-05-13 14:39:11,674 [INFO] master_pipeline — ════════════════════════════════════════════════════════════════════
+2026-05-13 14:39:11,674 [INFO] master_pipeline — [MASTER] ── ÉTAPE 1 — Génération Bronze ──
+2026-05-13 14:39:13,054 [INFO] prefect — Starting temporary server on http://127.0.0.1:8400
+See https://docs.prefect.io/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+2026-05-13 14:39:18,047 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/health "HTTP/1.1 200 OK"
+2026-05-13 14:39:18,332 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/admin/version "HTTP/1.1 200 OK"
+2026-05-13 14:39:18,332 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/csrf-token?client=4e10f558-60a7-4304-8359-359d49ce907f "HTTP/1.1 422 Unprocessable Entity"
+2026-05-13 14:39:18,371 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flows/ "HTTP/1.1 200 OK"
+2026-05-13 14:39:18,396 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:18,429 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/f92d2c67-3ab9-467e-b229-d09c9de056a7/set_state "HTTP/1.1 201 Created"
+2026-05-13 14:39:18,436 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/flow_runs/f92d2c67-3ab9-467e-b229-d09c9de056a7 "HTTP/1.1 200 OK"
+2026-05-13 14:39:18,437 [INFO] prefect.flow_runs — Beginning flow run 'idealistic-scallop' for flow 'novec_bronze_full'
+2026-05-13 14:39:18,441 [INFO] bronze_flow — ══ BRONZE FLOW — Full Init | backfill=30 | dry_run=False
+14:39:18.652 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+14:39:18.653 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:18,653 [INFO] bronze_flow — [BRONZE][infra] Backfill 30 jour(s)
+2026-05-13 14:39:18,722 [INFO] prefect.task_runs —   → Insertion SQL Server (table: Bronze.staging_infrastructure)...
+2026-05-13 14:39:19,886 [INFO] prefect.task_runs —   ✅ 2163 lignes insérées avec succès.
+2026-05-13 14:39:19,886 [INFO] bronze_flow — [BRONZE][infra] ✅ 2163 lignes → Bronze.staging_infrastructure
+14:39:19.899 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:19,902 [INFO] prefect.task_runs — Finished in state Completed()
+14:39:19.905 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:19,907 [INFO] bronze_flow — [BRONZE][itsm] Génération journalière
+2026-05-13 14:39:19,922 [INFO] prefect.task_runs —   → Insertion SQL Server (table: Bronze.staging_itsm_tickets)...
+2026-05-13 14:39:19,951 [INFO] prefect.task_runs —   ✅ 2 lignes insérées avec succès.
+2026-05-13 14:39:19,951 [INFO] bronze_flow — [BRONZE][itsm] ✅ 2 lignes → Bronze.staging_itsm_tickets
+14:39:19.951 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:19,951 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:19,958 [INFO] bronze_flow — [BRONZE][cyber] Génération journalière
+14:39:19.958 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 2 pending items.
+2026-05-13 14:39:19,959 [INFO] prefect.task_runs —   → Insertion SQL Server (table: Bronze.staging_cybersecurity)...
+2026-05-13 14:39:19,991 [INFO] prefect.task_runs —   ✅ 2 lignes insérées avec succès.
+2026-05-13 14:39:19,991 [INFO] bronze_flow — [BRONZE][cyber] ✅ 2 lignes → Bronze.staging_cybersecurity
+14:39:19.991 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:19,991 [INFO] prefect.task_runs — Finished in state Completed()
+14:39:19.998 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:19,999 [INFO] bronze_flow — [BRONZE][apps] Génération journalière
+2026-05-13 14:39:19,999 [INFO] prefect.task_runs —   → Insertion SQL Server (table: Bronze.staging_applications)...
+2026-05-13 14:39:20,026 [INFO] prefect.task_runs —   ✅ 6 lignes insérées avec succès.
+2026-05-13 14:39:20,026 [INFO] bronze_flow — [BRONZE][apps] ✅ 6 lignes → Bronze.staging_applications
+14:39:20.033 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,033 [INFO] prefect.task_runs — Finished in state Completed()
+14:39:20.034 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+14:39:20.037 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,037 [INFO] bronze_flow — [BRONZE][itam] Génération mensuelle
+2026-05-13 14:39:20,041 [INFO] prefect.task_runs —   → Insertion SQL Server (table: Bronze.staging_itam)...
+2026-05-13 14:39:20,054 [INFO] prefect.task_runs —   ✅ 1 lignes insérées avec succès.
+2026-05-13 14:39:20,054 [INFO] bronze_flow — [BRONZE][itam] ✅ 1 lignes → Bronze.staging_itam
+14:39:20.060 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,060 [INFO] prefect.task_runs — Finished in state Completed()
+14:39:20.062 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+14:39:20.062 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,062 [INFO] bronze_flow — [BRONZE][parc_auto] Génération horaire
+2026-05-13 14:39:20,062 [INFO] prefect.task_runs —   → Insertion SQL Server (table: Bronze.staging_parc_auto)...
+2026-05-13 14:39:20,089 [INFO] prefect.task_runs —   ✅ 2 lignes insérées avec succès.
+2026-05-13 14:39:20,089 [INFO] bronze_flow — [BRONZE][parc_auto] ✅ 2 lignes → Bronze.staging_parc_auto
+14:39:20.089 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,089 [INFO] prefect.task_runs — Finished in state Completed()
+14:39:20.089 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+14:39:20.095 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,095 [INFO] bronze_flow — [BRONZE][maintenance] Génération mensuelle
+2026-05-13 14:39:20,097 [INFO] prefect.task_runs —   → Insertion SQL Server (table: Bronze.staging_maintenance)...
+2026-05-13 14:39:20,109 [INFO] prefect.task_runs —   ✅ 1 lignes insérées avec succès.
+2026-05-13 14:39:20,113 [INFO] bronze_flow — [BRONZE][maintenance] ✅ 1 lignes → Bronze.staging_maintenance
+14:39:20.114 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,114 [INFO] prefect.task_runs — Finished in state Completed()
+14:39:20.117 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+14:39:20.120 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,120 [INFO] bronze_flow — [BRONZE][gouvernance] Génération mensuelle
+2026-05-13 14:39:20,120 [INFO] prefect.task_runs —   → Insertion SQL Server (table: Bronze.staging_gouvernance)...
+2026-05-13 14:39:20,159 [INFO] prefect.task_runs —   ✅ 4 lignes insérées avec succès.
+2026-05-13 14:39:20,159 [INFO] bronze_flow — [BRONZE][gouvernance] ✅ 4 lignes → Bronze.staging_gouvernance
+14:39:20.162 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,162 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:20,167 [INFO] bronze_flow — ══ BRONZE FLOW — Full Init SUCCESS | 2181 lignes | 0 erreurs
+2026-05-13 14:39:20,186 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/f92d2c67-3ab9-467e-b229-d09c9de056a7/set_state "HTTP/1.1 201 Created"
+2026-05-13 14:39:20,655 [INFO] prefect.flow_runs — Finished in state Completed()
+2026-05-13 14:39:20,661 [INFO] master_pipeline — [MASTER] Bronze ✅ 2181 lignes
+2026-05-13 14:39:20,661 [INFO] master_pipeline — [MASTER] ── ÉTAPE 2 — Validation + Transformation Silver ──
+2026-05-13 14:39:20,705 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/csrf-token?client=25d29ca9-cd97-4f15-8bc3-2bc9beb673f1 "HTTP/1.1 422 Unprocessable Entity"
+2026-05-13 14:39:20,723 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/logs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:20,860 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/csrf-token?client=de63924a-7a72-4e9f-8e41-d4d60d219d4e "HTTP/1.1 422 Unprocessable Entity"
+2026-05-13 14:39:20,876 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flows/ "HTTP/1.1 200 OK"
+2026-05-13 14:39:20,900 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:20,912 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/de1c1c8e-1cd2-4a73-a1d8-e0ca04aba9f4/set_state "HTTP/1.1 201 Created"
+2026-05-13 14:39:20,918 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/flow_runs/de1c1c8e-1cd2-4a73-a1d8-e0ca04aba9f4 "HTTP/1.1 200 OK"
+2026-05-13 14:39:20,918 [INFO] prefect.flow_runs — Beginning flow run 'prophetic-kingfisher' for flow 'novec_silver_full'
+2026-05-13 14:39:20,921 [INFO] silver_flow — ══ SILVER FLOW — Full Init | dry_run=False
+14:39:20.923 | ERROR   | GlobalEventLoopThread | prefect._internal.concurrency - Service 'EventsWorker' failed with 0 pending items.
+2026-05-13 14:39:20,923 [ERROR] prefect.events.utilities — Error emitting event: prefect.flow-run.heartbeat
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:20,923 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Pending
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:20,926 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Running
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:20,928 [INFO] silver_flow — [VAL] Validation Bronze : ['infrastructure', 'itsm', 'cybersecurity', 'applications', 'parc_auto', 'itam', 'maintenance', 'gouvernance']
+2026-05-13 14:39:21,115 [INFO] silver_flow — [VAL][infrastructure] ✅
+2026-05-13 14:39:21,127 [INFO] silver_flow — [VAL][itsm] ✅
+2026-05-13 14:39:21,131 [INFO] silver_flow — [VAL][cybersecurity] ✅
+2026-05-13 14:39:21,137 [INFO] silver_flow — [VAL][applications] ✅
+2026-05-13 14:39:21,147 [INFO] silver_flow — [VAL][parc_auto] ✅
+2026-05-13 14:39:21,151 [INFO] silver_flow — [VAL][itam] ✅
+2026-05-13 14:39:21,155 [INFO] silver_flow — [VAL][maintenance] ✅
+2026-05-13 14:39:21,159 [INFO] silver_flow — [VAL][gouvernance] ✅
+2026-05-13 14:39:21,159 [INFO] silver_flow — [VAL] 8/8 domaines validés
+2026-05-13 14:39:21,164 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Completed
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:21,164 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:21,166 [INFO] silver_flow — [SILVER][full] Validation ✅ 8 domaines
+2026-05-13 14:39:21,166 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Pending
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:21,166 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Running
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:21,169 [INFO] silver_flow — [TRANSFORM][full] Domaines : ['infrastructure', 'itsm', 'cybersecurity', 'applications', 'parc_auto', 'itam', 'maintenance', 'gouvernance']
+2026-05-13 14:39:21,173 [INFO] prefect.task_runs — [1/8] Infrastructure...
+2026-05-13 14:39:21,820 [INFO] prefect.task_runs —   ✅ Silver.silver_infrastructure — 1167 lignes / 18 colonnes
+2026-05-13 14:39:21,820 [INFO] silver_flow — [TRANSFORM][full] ✅ Silver.silver_infrastructure
+2026-05-13 14:39:21,820 [INFO] prefect.task_runs — [2/8] ITSM...
+2026-05-13 14:39:22,166 [INFO] prefect.task_runs —   ✅ Silver.silver_itsm — 369 lignes / 11 colonnes
+2026-05-13 14:39:22,166 [INFO] silver_flow — [TRANSFORM][full] ✅ Silver.silver_itsm
+2026-05-13 14:39:22,166 [INFO] prefect.task_runs — [3/8] Cybersécurité...
+2026-05-13 14:39:22,393 [INFO] prefect.task_runs —   ✅ Silver.silver_cybersecurity — 369 lignes / 8 colonnes
+2026-05-13 14:39:22,393 [INFO] silver_flow — [TRANSFORM][full] ✅ Silver.silver_cybersecurity
+2026-05-13 14:39:22,393 [INFO] prefect.task_runs — [4/8] Applications...
+2026-05-13 14:39:22,628 [INFO] prefect.task_runs —   ✅ Silver.silver_applications — 1107 lignes / 8 colonnes
+2026-05-13 14:39:22,628 [INFO] silver_flow — [TRANSFORM][full] ✅ Silver.silver_applications
+2026-05-13 14:39:22,628 [INFO] prefect.task_runs — [6/8] Parc Auto...
+2026-05-13 14:39:22,748 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/logs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:23,028 [INFO] prefect.task_runs —   ✅ Silver.silver_parc_auto — 369 lignes / 9 colonnes
+2026-05-13 14:39:23,028 [INFO] silver_flow — [TRANSFORM][full] ✅ Silver.silver_parc_auto
+2026-05-13 14:39:23,028 [INFO] prefect.task_runs — [5/8] ITAM...
+2026-05-13 14:39:23,079 [INFO] prefect.task_runs —   ✅ Silver.silver_itam — 17 lignes / 9 colonnes
+2026-05-13 14:39:23,079 [INFO] silver_flow — [TRANSFORM][full] ✅ Silver.silver_itam
+2026-05-13 14:39:23,079 [INFO] prefect.task_runs — [7/8] Maintenance...
+2026-05-13 14:39:23,139 [INFO] prefect.task_runs —   ✅ Silver.silver_maintenance — 17 lignes / 8 colonnes
+2026-05-13 14:39:23,139 [INFO] silver_flow — [TRANSFORM][full] ✅ Silver.silver_maintenance
+2026-05-13 14:39:23,139 [INFO] prefect.task_runs — [8/8] Gouvernance...
+2026-05-13 14:39:23,206 [INFO] prefect.task_runs —   ✅ Silver.silver_gouvernance — 52 lignes / 10 colonnes
+2026-05-13 14:39:23,206 [INFO] silver_flow — [TRANSFORM][full] ✅ Silver.silver_gouvernance
+2026-05-13 14:39:23,206 [INFO] silver_flow — [TRANSFORM][full] 8/8 domaines transformés
+2026-05-13 14:39:23,206 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Completed
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:23,206 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:23,206 [INFO] silver_flow — ══ SILVER FLOW — Full Init SUCCESS | 8 transformés
+2026-05-13 14:39:23,226 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/de1c1c8e-1cd2-4a73-a1d8-e0ca04aba9f4/set_state "HTTP/1.1 201 Created"
+2026-05-13 14:39:23,927 [INFO] prefect.flow_runs — Finished in state Completed()
+2026-05-13 14:39:23,929 [INFO] master_pipeline — [MASTER] Silver ✅ 8 transformés
+2026-05-13 14:39:23,931 [INFO] master_pipeline — [MASTER] ── ÉTAPE 3 — Pipeline ML Gold ──
+2026-05-13 14:39:24,136 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/csrf-token?client=8b4f8dd4-cd59-465a-88e3-89bbfc5bc22e "HTTP/1.1 422 Unprocessable Entity"
+2026-05-13 14:39:24,136 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flows/ "HTTP/1.1 200 OK"
+2026-05-13 14:39:24,164 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:24,175 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/d6db770a-777b-4909-976f-ebb10042dff9/set_state "HTTP/1.1 201 Created"
+2026-05-13 14:39:24,177 [INFO] httpx — HTTP Request: GET http://127.0.0.1:8400/api/flow_runs/d6db770a-777b-4909-976f-ebb10042dff9 "HTTP/1.1 200 OK"
+2026-05-13 14:39:24,177 [INFO] prefect.flow_runs — Beginning flow run 'ultraviolet-seahorse' for flow 'novec_ml'
+2026-05-13 14:39:24,183 [ERROR] prefect.events.utilities — Error emitting event: prefect.flow-run.heartbeat
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:24,183 [INFO] ml_flow — ════════════════════════════════════════════════════════════════════
+2026-05-13 14:39:24,183 [INFO] ml_flow —   ML FLOW — Dashboard 360° Novec
+2026-05-13 14:39:24,183 [INFO] ml_flow —   Run: aac2eba0 | dry_run=False | use_csv=False | skip_forecast=False | skip_scoring=False
+2026-05-13 14:39:24,183 [INFO] ml_flow — ════════════════════════════════════════════════════════════════════
+2026-05-13 14:39:24,183 [INFO] ml_flow — [ML] ── ÉTAPE 1 — Détection des anomalies ──
+2026-05-13 14:39:24,183 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Pending
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:24,183 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Running
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:24,183 [INFO] ml_flow — [ML][IF] Isolation Forest Detector
+2026-05-13 14:39:24,608 [INFO] prefect.task_runs —   → Chargement depuis SQL Server...
+2026-05-13 14:39:24,784 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/logs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:29,455 [INFO] prefect.task_runs —   [Infra] Détection anomalies infrastructure...
+2026-05-13 14:39:29,549 [INFO] prefect.task_runs —     [Infrastructure / SRV-DB-01] 20 anomalie(s) / 389 lignes (5.1%)
+2026-05-13 14:39:29,642 [INFO] prefect.task_runs —     [Infrastructure / SRV-ERP-01] 20 anomalie(s) / 389 lignes (5.1%)
+2026-05-13 14:39:29,741 [INFO] prefect.task_runs —     [Infrastructure / SRV-WEB-PME] 20 anomalie(s) / 389 lignes (5.1%)
+2026-05-13 14:39:29,745 [INFO] prefect.task_runs —   [ITSM] Détection anomalies service desk...
+2026-05-13 14:39:29,844 [INFO] prefect.task_runs —     [ITSM] 19 anomalie(s) / 369 lignes (5.1%)
+2026-05-13 14:39:29,845 [INFO] prefect.task_runs —   [Cyber] Détection anomalies cybersécurité...
+2026-05-13 14:39:29,927 [INFO] prefect.task_runs —     [Cybersécurité] 19 anomalie(s) / 369 lignes (5.1%)
+2026-05-13 14:39:29,927 [INFO] prefect.task_runs —   [Apps] Détection anomalies applications...
+2026-05-13 14:39:30,031 [INFO] prefect.task_runs —     [Applications / App_Compta] 19 anomalie(s) / 369 lignes (5.1%)
+2026-05-13 14:39:30,114 [INFO] prefect.task_runs —     [Applications / App_Core_Metier] 19 anomalie(s) / 369 lignes (5.1%)
+2026-05-13 14:39:30,205 [INFO] prefect.task_runs —     [Applications / App_SIRH] 19 anomalie(s) / 369 lignes (5.1%)
+2026-05-13 14:39:30,205 [INFO] ml_flow — [ML][IF] 155 anomalies / 3012 observations
+2026-05-13 14:39:30,205 [INFO] prefect.task_runs — 
+  📊 Résumé global : 155 anomalies / 3012 observations
+2026-05-13 14:39:30,836 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/logs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:32,475 [INFO] prefect.task_runs —   ✅ Sauvegardé dans Gold.anomalies_if_details et Gold.anomalies_detected
+2026-05-13 14:39:32,475 [INFO] ml_flow — [ML][IF] ✅ Résultats sauvegardés → Gold.anomalies_*
+2026-05-13 14:39:32,475 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Completed
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:32,475 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:32,475 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Pending
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:32,475 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Running
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:32,475 [INFO] ml_flow — [ML][ZScore] ZScore Detector
+2026-05-13 14:39:32,487 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] === Démarrage détection tous domaines ===
+2026-05-13 14:39:32,501 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_infrastructure chargé depuis SQL Server (1167 lignes)
+2026-05-13 14:39:32,649 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Infrastructure → 5835 observations (135 ROUGE, 207 AMBRE, 5493 VERT)
+2026-05-13 14:39:32,649 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ infra : 5835 lignes générées
+2026-05-13 14:39:32,654 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_itsm chargé depuis SQL Server (369 lignes)
+2026-05-13 14:39:32,706 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ITSM → 1845 observations (268 ROUGE, 53 AMBRE, 1524 VERT)
+2026-05-13 14:39:32,706 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ itsm : 1845 lignes générées
+2026-05-13 14:39:32,706 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_cybersecurity chargé depuis SQL Server (369 lignes)
+2026-05-13 14:39:32,762 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Cybersécurité → 1845 observations (84 ROUGE, 623 AMBRE, 1138 VERT)
+2026-05-13 14:39:32,762 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ cybersec : 1845 lignes générées
+2026-05-13 14:39:32,767 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_applications chargé depuis SQL Server (1107 lignes)
+2026-05-13 14:39:32,859 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Applications → 3321 observations (103 ROUGE, 588 AMBRE, 2630 VERT)
+2026-05-13 14:39:32,859 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ apps : 3321 lignes générées
+2026-05-13 14:39:32,870 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/logs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:32,875 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_itam chargé depuis SQL Server (17 lignes)
+2026-05-13 14:39:32,875 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ITAM → 34 observations (0 ROUGE, 1 AMBRE, 33 VERT)
+2026-05-13 14:39:32,879 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ itam : 34 lignes générées
+2026-05-13 14:39:32,885 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_parc_auto chargé depuis SQL Server (369 lignes)
+2026-05-13 14:39:32,937 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Parc_Auto → 738 observations (172 ROUGE, 151 AMBRE, 415 VERT)
+2026-05-13 14:39:32,949 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ parc_auto : 738 lignes générées
+2026-05-13 14:39:32,971 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_maintenance chargé depuis SQL Server (17 lignes)
+2026-05-13 14:39:32,976 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Maintenance → 34 observations (3 ROUGE, 10 AMBRE, 21 VERT)
+2026-05-13 14:39:32,976 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ maintenance : 34 lignes générées
+2026-05-13 14:39:32,976 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_gouvernance chargé depuis SQL Server (52 lignes)
+2026-05-13 14:39:32,990 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Gouvernance → 156 observations (5 ROUGE, 20 AMBRE, 131 VERT)
+2026-05-13 14:39:32,990 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ gouvernance : 156 lignes générées
+2026-05-13 14:39:32,990 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] === Détection terminée ===
+2026-05-13 14:39:32,990 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Sauvegarde 2423 anomalies (ROUGE+AMBRE)
+2026-05-13 14:39:34,365 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✅ 2423 lignes écrites → Gold.anomalies_detected
+2026-05-13 14:39:34,365 [INFO] ml_flow — [ML][ZScore] ✅ 2423 alertes ROUGE/AMBRE sauvegardées
+2026-05-13 14:39:34,365 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Completed
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:34,365 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:34,365 [INFO] ml_flow — [ML] ── ÉTAPE 2 — Prédictions ──
+2026-05-13 14:39:34,374 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Pending
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:34,375 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Running
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:34,376 [INFO] ml_flow — [ML][Prophet] Prophet Forecaster
+2026-05-13 14:39:34,774 [ERROR] prophet.plot — Importing plotly failed. Interactive plots will not work.
+2026-05-13 14:39:34,774 [INFO] ml.forecasting.prophet_forecaster — ProphetForecaster — source : SQL Server (Dashboard360_Bronze)
+2026-05-13 14:39:34,774 [INFO] ml.forecasting.prophet_forecaster — ══════════════════════════════════════════
+2026-05-13 14:39:34,774 [INFO] ml.forecasting.prophet_forecaster —   Prophet Forecaster — Dashboard 360 Novec
+2026-05-13 14:39:34,774 [INFO] ml.forecasting.prophet_forecaster — ══════════════════════════════════════════
+2026-05-13 14:39:34,774 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : INFRA
+2026-05-13 14:39:34,774 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_infrastructure
+2026-05-13 14:39:34,796 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_infrastructure chargé depuis SQL (1167 lignes)
+2026-05-13 14:39:34,877 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:34,905 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/logs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:34,916 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:34,990 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-DB-01::Disk_Moyen_Pct → 90 jours prédits | RAG Rouge : 111 pts
+2026-05-13 14:39:35,038 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:35,082 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:35,138 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-DB-01::Latence_Moyenne_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:35,249 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-DB-01::Disponibilite_Pct → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:35,303 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:35,354 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:35,415 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-ERP-01::Disk_Moyen_Pct → 90 jours prédits | RAG Rouge : 113 pts
+2026-05-13 14:39:35,479 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:35,512 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:35,559 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-ERP-01::Latence_Moyenne_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:35,618 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:35,661 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:35,721 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-ERP-01::Disponibilite_Pct → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:35,773 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:35,818 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:35,882 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-WEB-PME::Disk_Moyen_Pct → 90 jours prédits | RAG Rouge : 115 pts
+2026-05-13 14:39:35,941 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:35,978 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:36,035 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-WEB-PME::Latence_Moyenne_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:36,093 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:36,127 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:36,177 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-WEB-PME::Disponibilite_Pct → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:36,177 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : ITSM
+2026-05-13 14:39:36,192 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_itsm
+2026-05-13 14:39:36,196 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_itsm chargé depuis SQL (369 lignes)
+2026-05-13 14:39:36,248 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:36,277 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:36,333 [INFO] ml.forecasting.prophet_forecaster —   ✓ ITSM::Volume_Total → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:36,387 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:36,420 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:36,479 [INFO] ml.forecasting.prophet_forecaster —   ✓ ITSM::Backlog_Total → 14 jours prédits | RAG Rouge : 274 pts
+2026-05-13 14:39:36,479 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : CYBERSEC
+2026-05-13 14:39:36,479 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_cybersecurity
+2026-05-13 14:39:36,479 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_cybersecurity chargé depuis SQL (369 lignes)
+2026-05-13 14:39:36,539 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:36,577 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:36,636 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersec::MFA_Adoption_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:36,699 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:36,724 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:36,793 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersec::Taux_Phishing_Moyen_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:36,846 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:36,885 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:36,954 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersec::RGPD_Conformite_Pct → 90 jours prédits | RAG Rouge : 459 pts
+2026-05-13 14:39:37,006 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:37,035 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:37,095 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersec::Systemes_Patches_Moyen_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:37,095 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : ITAM
+2026-05-13 14:39:37,095 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_itam
+2026-05-13 14:39:37,095 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_itam chargé depuis SQL (17 lignes)
+2026-05-13 14:39:37,158 [INFO] prophet — n_changepoints greater than number of observations. Using 12.
+2026-05-13 14:39:37,158 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:37,199 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:37,224 [INFO] ml.forecasting.prophet_forecaster —   ✓ ITAM::Vetuste_Moyen_Pct → 6 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:37,280 [INFO] prophet — n_changepoints greater than number of observations. Using 12.
+2026-05-13 14:39:37,284 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:37,335 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:37,361 [INFO] ml.forecasting.prophet_forecaster —   ✓ ITAM::CMDB_Couverture_Pct → 6 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:37,361 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : APPS
+2026-05-13 14:39:37,361 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_applications
+2026-05-13 14:39:37,371 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_applications chargé depuis SQL (1107 lignes)
+2026-05-13 14:39:37,425 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:37,453 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:37,515 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Compta::Adoption_PowerBI_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:37,574 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:37,603 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:37,660 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Compta::Temps_Reponse_Moyen_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:37,707 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:37,738 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:37,794 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Compta::Qualite_Donnees_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:37,858 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:37,891 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:37,950 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Core_Metier::Adoption_PowerBI_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:38,011 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:38,037 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:38,083 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Core_Metier::Temps_Reponse_Moyen_ms → 7 jours prédits | RAG Rouge : 49 pts
+2026-05-13 14:39:38,144 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:38,184 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:38,250 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Core_Metier::Qualite_Donnees_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:38,304 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:38,338 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:38,401 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_SIRH::Adoption_PowerBI_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:38,457 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:38,488 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:38,546 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_SIRH::Temps_Reponse_Moyen_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:38,599 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:38,626 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:38,692 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_SIRH::Qualite_Donnees_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:38,692 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : GOUVERNANCE
+2026-05-13 14:39:38,692 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_gouvernance
+2026-05-13 14:39:38,696 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_gouvernance chargé depuis SQL (52 lignes)
+2026-05-13 14:39:38,746 [INFO] prophet — n_changepoints greater than number of observations. Using 9.
+2026-05-13 14:39:38,749 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:38,791 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:38,817 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersecurité::Adoption_Digital_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:38,864 [INFO] prophet — n_changepoints greater than number of observations. Using 9.
+2026-05-13 14:39:38,874 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:38,904 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:38,929 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersecurité::Ecart_Budget_Moyen_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:38,980 [INFO] prophet — n_changepoints greater than number of observations. Using 9.
+2026-05-13 14:39:38,983 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:39,032 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:39,054 [INFO] ml.forecasting.prophet_forecaster —   ✓ Data::Adoption_Digital_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:39,102 [INFO] prophet — n_changepoints greater than number of observations. Using 9.
+2026-05-13 14:39:39,109 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:39,139 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:39,164 [INFO] ml.forecasting.prophet_forecaster —   ✓ Data::Ecart_Budget_Moyen_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:39,214 [INFO] prophet — n_changepoints greater than number of observations. Using 9.
+2026-05-13 14:39:39,219 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:39,247 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:39,278 [INFO] ml.forecasting.prophet_forecaster —   ✓ IT-Operations::Adoption_Digital_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:39,322 [INFO] prophet — n_changepoints greater than number of observations. Using 9.
+2026-05-13 14:39:39,322 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:39,356 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:39,379 [INFO] ml.forecasting.prophet_forecaster —   ✓ IT-Operations::Ecart_Budget_Moyen_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:39,428 [INFO] prophet — n_changepoints greater than number of observations. Using 9.
+2026-05-13 14:39:39,431 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:39,460 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:39,487 [INFO] ml.forecasting.prophet_forecaster —   ✓ Projets::Adoption_Digital_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:39,538 [INFO] prophet — n_changepoints greater than number of observations. Using 9.
+2026-05-13 14:39:39,538 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-13 14:39:39,564 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-13 14:39:39,590 [INFO] ml.forecasting.prophet_forecaster —   ✓ Projets::Ecart_Budget_Moyen_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster — ══════════════════════════════════════════
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster —   infra           →   3813 lignes
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster —   itsm            →    759 lignes
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster —   cybersec        →   1836 lignes
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster —   itam            →     38 lignes
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster —   apps            →   3882 lignes
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster —   gouvernance     →    128 lignes
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster —   alerts          →      7 lignes
+2026-05-13 14:39:39,602 [INFO] ml.forecasting.prophet_forecaster — ══════════════════════════════════════════
+2026-05-13 14:39:39,602 [INFO] ml_flow — [ML][Prophet] 10456 prédictions + 7 alertes générées
+2026-05-13 14:39:40,017 [INFO] ml_flow — [Prophet] ✅ 3813 lignes → Gold.forecast_infra
+2026-05-13 14:39:40,225 [INFO] ml_flow — [Prophet] ✅ 759 lignes → Gold.forecast_itsm
+2026-05-13 14:39:40,523 [INFO] ml_flow — [Prophet] ✅ 1836 lignes → Gold.forecast_cybersec
+2026-05-13 14:39:40,571 [INFO] ml_flow — [Prophet] ✅ 38 lignes → Gold.forecast_itam
+2026-05-13 14:39:41,084 [INFO] ml_flow — [Prophet] ✅ 3882 lignes → Gold.forecast_apps
+2026-05-13 14:39:41,231 [INFO] ml_flow — [Prophet] ✅ 128 lignes → Gold.forecast_gouvernance
+2026-05-13 14:39:41,236 [INFO] ml_flow — [Prophet] ✅ 7 alertes → Gold.prophet_alerts
+2026-05-13 14:39:41,236 [INFO] ml_flow — [ML][Prophet] ✅ Résultats sauvegardés → Gold.forecast_*
+2026-05-13 14:39:41,242 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Completed
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:41,244 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:41,246 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Pending
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:41,247 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Running
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:41,248 [INFO] ml_flow — [ML][ARIMA] ARIMA Forecaster
+2026-05-13 14:39:41,506 [INFO] ml.forecasting.arima_forecaster — [ARIMA] === Démarrage prédictions ARIMA (6 configs) ===
+2026-05-13 14:39:41,506 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Table Gold.forecast_maintenance vérifiée/créée
+2026-05-13 14:39:41,523 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Table Gold.forecast_parc_auto vérifiée/créée
+2026-05-13 14:39:41,545 [INFO] ml.forecasting.arima_forecaster — [ARIMA] GroupKey vérifié/ajouté sur Gold.forecast_maintenance
+2026-05-13 14:39:41,557 [INFO] ml.forecasting.arima_forecaster — [ARIMA] GroupKey vérifié/ajouté sur Gold.forecast_parc_auto
+2026-05-13 14:39:41,565 [INFO] ml.forecasting.arima_forecaster — [ARIMA] GroupKey vérifié/ajouté sur Gold.forecast_gouvernance
+2026-05-13 14:39:41,580 [INFO] ml.forecasting.arima_forecaster — [ARIMA] GroupKey vérifié/ajouté sur Gold.forecast_itam
+2026-05-13 14:39:41,580 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → itam / TCO_Moyen_Par_Poste_MAD (horizon=3)
+2026-05-13 14:39:41,580 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_itam chargé (17 lignes)
+2026-05-13 14:39:42,551 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   itam/TCO_Moyen_Par_Poste_MAD → 16 lignes
+2026-05-13 14:39:42,551 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → itam / Conformite_Licences_Pct (horizon=6)
+2026-05-13 14:39:42,557 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_itam chargé (17 lignes)
+2026-05-13 14:39:42,946 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/logs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:44,050 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   itam/Conformite_Licences_Pct → 19 lignes
+2026-05-13 14:39:44,050 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → maintenance / Ratio_Preventif_Pct (horizon=3)
+2026-05-13 14:39:44,050 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_maintenance chargé (17 lignes)
+2026-05-13 14:39:44,804 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   maintenance/Ratio_Preventif_Pct → 16 lignes
+2026-05-13 14:39:44,804 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → maintenance / Total_Ruptures_Stock (horizon=3)
+2026-05-13 14:39:44,804 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_maintenance chargé (17 lignes)
+2026-05-13 14:39:45,718 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   maintenance/Total_Ruptures_Stock → 16 lignes
+2026-05-13 14:39:45,718 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → parc_auto / Taux_Sinistralite_Pct (horizon=1)
+2026-05-13 14:39:45,733 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_parc_auto chargé (369 lignes)
+2026-05-13 14:39:46,309 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   parc_auto/Taux_Sinistralite_Pct → 15 lignes
+2026-05-13 14:39:46,309 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → gouvernance / Cout_IT_Par_Employe_MAD (horizon=6)
+2026-05-13 14:39:46,309 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_gouvernance chargé (52 lignes)
+2026-05-13 14:39:47,055 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   gouvernance/Cout_IT_Par_Employe_MAD/Cybersecurité → 19 lignes
+2026-05-13 14:39:47,537 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   gouvernance/Cout_IT_Par_Employe_MAD/Data → 19 lignes
+2026-05-13 14:39:48,296 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   gouvernance/Cout_IT_Par_Employe_MAD/IT-Operations → 19 lignes
+2026-05-13 14:39:48,905 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   gouvernance/Cout_IT_Par_Employe_MAD/Projets → 19 lignes
+2026-05-13 14:39:48,905 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_itam : 35 lignes totales
+2026-05-13 14:39:48,905 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_parc_auto : 15 lignes totales
+2026-05-13 14:39:48,905 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_maintenance : 32 lignes totales
+2026-05-13 14:39:48,905 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_gouvernance : 76 lignes totales
+2026-05-13 14:39:48,905 [INFO] ml.forecasting.arima_forecaster — [ARIMA] === Prédictions ARIMA terminées ===
+2026-05-13 14:39:48,905 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_infra : vide — ignoré
+2026-05-13 14:39:48,910 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_itsm : vide — ignoré
+2026-05-13 14:39:48,910 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_cybersec : vide — ignoré
+2026-05-13 14:39:48,910 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_apps : vide — ignoré
+2026-05-13 14:39:48,915 [INFO] ml.forecasting.arima_forecaster — [ARIMA] DELETE KPI=TCO_Moyen_Par_Poste_MAD dans Gold.forecast_itam avant INSERT
+2026-05-13 14:39:48,918 [INFO] ml.forecasting.arima_forecaster — [ARIMA] DELETE KPI=Conformite_Licences_Pct dans Gold.forecast_itam avant INSERT
+2026-05-13 14:39:48,981 [INFO] ml.forecasting.arima_forecaster — [ARIMA] ✅ 35 lignes → Gold.forecast_itam
+2026-05-13 14:39:48,989 [INFO] ml.forecasting.arima_forecaster — [ARIMA] DELETE KPI=Taux_Sinistralite_Pct dans Gold.forecast_parc_auto avant INSERT
+2026-05-13 14:39:49,008 [INFO] ml.forecasting.arima_forecaster — [ARIMA] ✅ 15 lignes → Gold.forecast_parc_auto
+2026-05-13 14:39:49,015 [INFO] ml.forecasting.arima_forecaster — [ARIMA] DELETE KPI=Ratio_Preventif_Pct dans Gold.forecast_maintenance avant INSERT
+2026-05-13 14:39:49,017 [INFO] ml.forecasting.arima_forecaster — [ARIMA] DELETE KPI=Total_Ruptures_Stock dans Gold.forecast_maintenance avant INSERT
+2026-05-13 14:39:49,058 [INFO] ml.forecasting.arima_forecaster — [ARIMA] ✅ 32 lignes → Gold.forecast_maintenance
+2026-05-13 14:39:49,066 [INFO] ml.forecasting.arima_forecaster — [ARIMA] DELETE KPI=Cout_IT_Par_Employe_MAD dans Gold.forecast_gouvernance avant INSERT
+2026-05-13 14:39:49,162 [INFO] ml.forecasting.arima_forecaster — [ARIMA] ✅ 76 lignes → Gold.forecast_gouvernance
+2026-05-13 14:39:49,162 [INFO] ml_flow — [ML][ARIMA] ✅ 158 prédictions sauvegardées
+2026-05-13 14:39:49,162 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Completed
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:49,165 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:49,165 [INFO] ml_flow — [ML] ── ÉTAPE 3 — IT Risk Score ──
+2026-05-13 14:39:49,167 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Pending
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:49,167 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Running
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:49,171 [INFO] ml_flow — [ML][RiskScore] IT Risk Score
+2026-05-13 14:39:49,171 [INFO] ml.scoring.it_risk_score — [RiskScore] === Calcul IT Risk Score pour 2026-05-13 ===
+2026-05-13 14:39:49,171 [INFO] ml.scoring.it_risk_score — [RiskScore] Chargement Gold.anomalies_detected...
+2026-05-13 14:39:49,189 [INFO] ml.scoring.it_risk_score — [RiskScore] 4 lignes anomalies chargées
+2026-05-13 14:39:49,189 [INFO] ml.scoring.it_risk_score — [RiskScore] Chargement Gold.prophet_alerts...
+2026-05-13 14:39:49,196 [INFO] ml.scoring.it_risk_score — [RiskScore] 49 alertes Prophet actives
+2026-05-13 14:39:49,196 [INFO] ml.scoring.it_risk_score — [RiskScore] Chargement forecast tables (Is_Forecast=1)...
+2026-05-13 14:39:49,356 [INFO] ml.scoring.it_risk_score — [RiskScore] 206 prédictions non-VERT trouvées
+2026-05-13 14:39:49,360 [INFO] ml.scoring.it_risk_score — [RiskScore] Composantes → A: {'Infrastructure': 0.0, 'Cybersécurité': 100.0, 'ITSM': 0.0, 'Applications': 100.0, 'ITAM': 0.0, 'Gouvernance': 0.0} | K: {'Infrastructure': 100.0, 'Cybersécurité': 46.8, 'ITSM': 100.0, 'Applications': 49.1, 'ITAM': 0.0, 'Gouvernance': 19.1} | P: {'Infrastructure': 0.0, 'Cybersécurité': 68.5, 'ITSM': 100.0, 'Applications': 53.0, 'ITAM': 0.0, 'Gouvernance': 39.3}
+2026-05-13 14:39:49,362 [INFO] ml.scoring.it_risk_score — [RiskScore] Score_Global=48.7 | RAG=AMBRE | Anomalies=3 | Alertes Rouge=22
+2026-05-13 14:39:49,367 [INFO] ml.scoring.it_risk_score — [RiskScore] DELETE Gold.it_risk_score WHERE DateKey = 2026-05-13
+2026-05-13 14:39:49,377 [INFO] ml.scoring.it_risk_score — [RiskScore] ✅ Score 2026-05-13 écrit dans Gold.it_risk_score
+2026-05-13 14:39:49,377 [INFO] ml_flow — [ML][RiskScore] ✅ Score=48.7 🟡 AMBRE
+2026-05-13 14:39:49,380 [ERROR] prefect.events.utilities — Error emitting event: prefect.task-run.Completed
+Traceback (most recent call last):
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\events\utilities.py", line 105, in emit_event
+    worker_instance.send(event_obj)
+  File "C:\Users\tacht\dashboard360_novec\.venv\Lib\site-packages\prefect\_internal\concurrency\services.py", line 348, in send
+    raise RuntimeError("Cannot put items in a stopped service instance.")
+RuntimeError: Cannot put items in a stopped service instance.
+2026-05-13 14:39:49,380 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-13 14:39:49,401 [WARNING] ml_flow — [ML] Impossible d'enregistrer le run : (pyodbc.IntegrityError) ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the CHECK constraint "CK_PR_Trigger". The conflict occurred in database "Dashboard360_Bronze", table "Gold.pipeline_runs", column \'Triggered_By\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)')
+[SQL: INSERT INTO [Gold].pipeline_runs ([Run_Id], [Triggered_By], [Started_At], [Finished_At], [Duration_Seconds], [Status], [Error_Message], [IF_Anomalies_Detectees], [ZScore_Alertes_Generees], [Prophet_Predictions], [ARIMA_Predictions], [Risk_Score_Global], [Risk_Score_RAG]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('aac2eba0', 'ml_flow', datetime.datetime(2026, 5, 13, 13, 39, 24, 183231), datetime.datetime(2026, 5, 13, 13, 39, 49, 380722), 25, 'success', None, 155, 2423, 10456, 158, 48.74, 'AMBRE')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-05-13 14:39:49,404 [INFO] prefect.flow_runs — 
+2026-05-13 14:39:49,404 [INFO] prefect.flow_runs — ════════════════════════════════════════════════════════════════════
+2026-05-13 14:39:49,406 [INFO] prefect.flow_runs —   ML FLOW — Dashboard 360° Novec
+2026-05-13 14:39:49,406 [INFO] prefect.flow_runs —   ✅ SUCCESS    │ Run: aac2eba0 │ Durée: 25s
+2026-05-13 14:39:49,408 [INFO] prefect.flow_runs — ════════════════════════════════════════════════════════════════════
+2026-05-13 14:39:49,408 [INFO] prefect.flow_runs —   IF anomalies détectées   :      155
+2026-05-13 14:39:49,408 [INFO] prefect.flow_runs —   ZScore alertes (R/A)     :     2423
+2026-05-13 14:39:49,408 [INFO] prefect.flow_runs —   Prophet prédictions      :    10456
+2026-05-13 14:39:49,410 [INFO] prefect.flow_runs —   ARIMA prédictions        :      158
+2026-05-13 14:39:49,410 [INFO] prefect.flow_runs —   IT Risk Score global     :   48.7/100  🟡 AMBRE
+2026-05-13 14:39:49,412 [INFO] prefect.flow_runs — ════════════════════════════════════════════════════════════════════
+2026-05-13 14:39:49,413 [INFO] ml_flow — [ml_flow] Run aac2eba0 — SUCCESS — durée 25s
+2026-05-13 14:39:49,427 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/flow_runs/d6db770a-777b-4909-976f-ebb10042dff9/set_state "HTTP/1.1 201 Created"
+2026-05-13 14:39:50,285 [INFO] prefect.flow_runs — Finished in state Completed()
+2026-05-13 14:39:50,285 [INFO] master_pipeline — [MASTER] ML ✅ Score=48.7 RAG=AMBRE
+
+════════════════════════════════════════════════════════════════════
+  MASTER_FULL_INIT
+  ✅ SUCCESS    │ Run: 36dd4fdd │ Durée: 38s
+════════════════════════════════════════════════════════════════════
+  Lignes Bronze générées       :     2181
+  Domaines Bronze validés      :        8
+  Domaines Silver transformés  :        8
+  IF anomalies détectées       :      155
+  ZScore alertes (R/A)         :     2423
+  Prophet prédictions          :    10456
+  ARIMA prédictions            :      158
+  IT Risk Score global         :   48.7/100  🟡 AMBRE
+════════════════════════════════════════════════════════════════════
+2026-05-13 14:39:50,285 [INFO] master_pipeline — [master_full_init] Run 36dd4fdd — SUCCESS — durée 38s
+2026-05-13 14:39:50,319 [INFO] httpx — HTTP Request: POST http://127.0.0.1:8400/api/logs/ "HTTP/1.1 201 Created"
+2026-05-13 14:39:50,337 [INFO] prefect — Stopping temporary server on http://127.0.0.1:8400
+//apres decoupage des flows 

@@ -213,9 +213,12 @@ def transform_maintenance(engine):
         / df['Total_Ordres_Travail'].replace(0, np.nan)
     ).fillna(0).round(2)
 
+    # Renommage pour alignement avec le nom attendu côté Silver/ARIMA
+    df = df.rename(columns={'Ruptures_Stock_Pieces': 'Total_Ruptures_Stock'})
+
     cols = ['DateKey', 'Total_Ordres_Travail', 'Interventions_Preventives',
             'Interventions_Correctives', 'Ratio_Preventif_Pct',
-            'Taux_Realisation_Preventif_Pct', 'Ruptures_Stock_Pieces',
+            'Taux_Realisation_Preventif_Pct', 'Total_Ruptures_Stock',  # ← corrigé
             'Pct_Preventif_Realise']
 
     save_silver(df[cols], 'silver_maintenance', engine)

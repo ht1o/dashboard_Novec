@@ -1,0 +1,418 @@
+PS C:\Users\tacht\dashboard360_novec> python master_pipeline.py --full-init --dry-run
+2026-05-12 17:51:03,306 [INFO] httpx — HTTP Request: GET http://127.0.0.1:4200/api/admin/version "HTTP/1.1 200 OK"
+2026-05-12 17:51:03,573 [INFO] httpx — HTTP Request: GET http://127.0.0.1:4200/api/csrf-token?client=1635f947-7b50-484a-b534-e723b4a26acd "HTTP/1.1 422 Unprocessable Entity"
+2026-05-12 17:51:03,698 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/flows/ "HTTP/1.1 201 Created"
+2026-05-12 17:51:04,146 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/flow_runs/ "HTTP/1.1 201 Created"
+2026-05-12 17:51:04,696 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/flow_runs/41e63cef-8a00-4cab-bf6f-b527e92dc82b/set_state "HTTP/1.1 201 Created"
+2026-05-12 17:51:04,790 [INFO] httpx — HTTP Request: GET http://127.0.0.1:4200/api/flow_runs/41e63cef-8a00-4cab-bf6f-b527e92dc82b "HTTP/1.1 200 OK"
+2026-05-12 17:51:04,790 [INFO] prefect.flow_runs — Beginning flow run 'nondescript-shrew' for flow 'novec_full_init'
+2026-05-12 17:51:04,792 [INFO] prefect.flow_runs — View at http://127.0.0.1:4200/runs/flow-run/41e63cef-8a00-4cab-bf6f-b527e92dc82b
+2026-05-12 17:51:04,796 [INFO] master_pipeline — ════════════════════════════════════════════════════════════════════
+2026-05-12 17:51:04,796 [INFO] master_pipeline —   FLOW FULL INIT — Dashboard 360° Novec
+2026-05-12 17:51:04,796 [INFO] master_pipeline —   Run: d508ed01 | backfill_days=1 | dry_run=True
+2026-05-12 17:51:04,796 [INFO] master_pipeline — ════════════════════════════════════════════════════════════════════
+2026-05-12 17:51:04,966 [INFO] master_pipeline — [GEN][infra] Backfill 1 jour(s)
+2026-05-12 17:51:04,966 [INFO] master_pipeline — [GEN][infra] --dry-run : génération simulée sans écriture
+2026-05-12 17:51:04,970 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:04,972 [INFO] master_pipeline — [GEN][daily] Génération ITSM + Cyber + Applications
+2026-05-12 17:51:04,972 [INFO] master_pipeline — [GEN][daily] --dry-run : génération simulée sans écriture
+2026-05-12 17:51:04,974 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:04,975 [INFO] master_pipeline — [GEN][parc_auto] Génération horaire
+2026-05-12 17:51:04,975 [INFO] master_pipeline — [GEN][parc_auto] --dry-run : génération simulée sans écriture
+2026-05-12 17:51:04,976 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:04,977 [INFO] master_pipeline — [GEN][monthly] Génération ITAM + Maintenance + Gouvernance
+2026-05-12 17:51:04,977 [INFO] master_pipeline — [GEN][monthly] --dry-run : génération simulée sans écriture
+2026-05-12 17:51:04,978 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:04,980 [INFO] master_pipeline — [VAL] Validation Bronze : ['infrastructure', 'itsm', 'cybersecurity', 'applications', 'parc_auto', 'itam', 'maintenance', 'gouvernance']
+2026-05-12 17:51:05,429 [INFO] httpx — HTTP Request: GET http://127.0.0.1:4200/api/admin/version "HTTP/1.1 200 OK"
+2026-05-12 17:51:05,432 [INFO] master_pipeline — [VAL][infrastructure] ✅
+2026-05-12 17:51:05,445 [INFO] master_pipeline — [VAL][itsm] ✅
+2026-05-12 17:51:05,454 [INFO] master_pipeline — [VAL][cybersecurity] ✅
+2026-05-12 17:51:05,466 [INFO] master_pipeline — [VAL][applications] ✅
+2026-05-12 17:51:05,471 [INFO] master_pipeline — [VAL][parc_auto] ✅
+2026-05-12 17:51:05,476 [INFO] master_pipeline — [VAL][itam] ✅
+2026-05-12 17:51:05,479 [INFO] master_pipeline — [VAL][maintenance] ✅
+2026-05-12 17:51:05,482 [INFO] master_pipeline — [VAL][gouvernance] ✅
+2026-05-12 17:51:05,482 [INFO] master_pipeline — [VAL] ✅ 8/8 domaines validés
+2026-05-12 17:51:05,486 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:05,487 [INFO] master_pipeline — [TRANSFORM][transform_daily] Domaines : ['infrastructure', 'itsm', 'cybersecurity', 'applications', 'parc_auto', 'itam', 'maintenance', 'gouvernance']
+2026-05-12 17:51:05,489 [INFO] prefect.task_runs — [1/8] Infrastructure...
+2026-05-12 17:51:05,617 [INFO] httpx — HTTP Request: GET http://127.0.0.1:4200/api/flows/02e61211-ffd8-449f-9e91-cd9d0a3c54ee "HTTP/1.1 200 OK"
+2026-05-12 17:51:06,086 [INFO] prefect.task_runs —   ✅ Silver.silver_infrastructure — 1098 lignes / 18 colonnes
+2026-05-12 17:51:06,089 [INFO] master_pipeline — [TRANSFORM][transform_daily] ✅ Silver.silver_infrastructure
+2026-05-12 17:51:06,089 [INFO] prefect.task_runs — [2/8] ITSM...
+2026-05-12 17:51:06,574 [INFO] prefect.task_runs —   ✅ Silver.silver_itsm — 366 lignes / 11 colonnes
+2026-05-12 17:51:06,576 [INFO] master_pipeline — [TRANSFORM][transform_daily] ✅ Silver.silver_itsm
+2026-05-12 17:51:06,576 [INFO] prefect.task_runs — [3/8] Cybersécurité...
+2026-05-12 17:51:06,936 [INFO] prefect.task_runs —   ✅ Silver.silver_cybersecurity — 366 lignes / 8 colonnes
+2026-05-12 17:51:06,937 [INFO] master_pipeline — [TRANSFORM][transform_daily] ✅ Silver.silver_cybersecurity
+2026-05-12 17:51:06,937 [INFO] prefect.task_runs — [4/8] Applications...
+2026-05-12 17:51:07,084 [INFO] httpx — HTTP Request: GET http://127.0.0.1:4200/api/csrf-token?client=80ea2b64-50b7-4e7f-b09e-1395870c99d5 "HTTP/1.1 422 Unprocessable Entity"
+2026-05-12 17:51:07,152 [INFO] prefect.task_runs —   ✅ Silver.silver_applications — 1098 lignes / 8 colonnes
+2026-05-12 17:51:07,152 [INFO] master_pipeline — [TRANSFORM][transform_daily] ✅ Silver.silver_applications
+2026-05-12 17:51:07,152 [INFO] prefect.task_runs — [6/8] Parc Auto...
+2026-05-12 17:51:07,285 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/logs/ "HTTP/1.1 201 Created"
+2026-05-12 17:51:07,406 [INFO] prefect.task_runs —   ✅ Silver.silver_parc_auto — 366 lignes / 9 colonnes
+2026-05-12 17:51:07,406 [INFO] master_pipeline — [TRANSFORM][transform_daily] ✅ Silver.silver_parc_auto
+2026-05-12 17:51:07,406 [INFO] prefect.task_runs — [5/8] ITAM...
+2026-05-12 17:51:07,459 [INFO] prefect.task_runs —   ✅ Silver.silver_itam — 12 lignes / 9 colonnes
+2026-05-12 17:51:07,459 [INFO] master_pipeline — [TRANSFORM][transform_daily] ✅ Silver.silver_itam
+2026-05-12 17:51:07,459 [INFO] prefect.task_runs — [7/8] Maintenance...
+2026-05-12 17:51:07,512 [INFO] prefect.task_runs —   ✅ Silver.silver_maintenance — 12 lignes / 8 colonnes
+2026-05-12 17:51:07,513 [INFO] master_pipeline — [TRANSFORM][transform_daily] ✅ Silver.silver_maintenance
+2026-05-12 17:51:07,513 [INFO] prefect.task_runs — [8/8] Gouvernance...
+2026-05-12 17:51:07,589 [INFO] prefect.task_runs —   ✅ Silver.silver_gouvernance — 48 lignes / 10 colonnes
+2026-05-12 17:51:07,589 [INFO] master_pipeline — [TRANSFORM][transform_daily] ✅ Silver.silver_gouvernance
+2026-05-12 17:51:07,589 [INFO] master_pipeline — [TRANSFORM][transform_daily] 8/8 domaines transformés
+2026-05-12 17:51:07,589 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:07,592 [INFO] master_pipeline — [Init] Pipeline ML Gold complet
+2026-05-12 17:51:07,594 [INFO] master_pipeline — [IF] Isolation Forest Detector
+2026-05-12 17:51:08,042 [INFO] prefect.task_runs —   → Chargement depuis SQL Server...
+2026-05-12 17:51:08,082 [INFO] prefect.task_runs —   [Infra] Détection anomalies infrastructure...
+2026-05-12 17:51:08,159 [INFO] prefect.task_runs —     [Infrastructure / SRV-DB-01] 19 anomalie(s) / 366 lignes (5.2%)
+2026-05-12 17:51:08,232 [INFO] prefect.task_runs —     [Infrastructure / SRV-ERP-01] 19 anomalie(s) / 366 lignes (5.2%)
+2026-05-12 17:51:08,309 [INFO] prefect.task_runs —     [Infrastructure / SRV-WEB-PME] 19 anomalie(s) / 366 lignes (5.2%)
+2026-05-12 17:51:08,312 [INFO] prefect.task_runs —   [ITSM] Détection anomalies service desk...
+2026-05-12 17:51:08,387 [INFO] prefect.task_runs —     [ITSM] 19 anomalie(s) / 366 lignes (5.2%)
+2026-05-12 17:51:08,387 [INFO] prefect.task_runs —   [Cyber] Détection anomalies cybersécurité...
+2026-05-12 17:51:08,462 [INFO] prefect.task_runs —     [Cybersécurité] 19 anomalie(s) / 366 lignes (5.2%)
+2026-05-12 17:51:08,462 [INFO] prefect.task_runs —   [Apps] Détection anomalies applications...
+2026-05-12 17:51:08,538 [INFO] prefect.task_runs —     [Applications / App_Compta] 19 anomalie(s) / 366 lignes (5.2%)
+2026-05-12 17:51:08,615 [INFO] prefect.task_runs —     [Applications / App_Core_Metier] 19 anomalie(s) / 366 lignes (5.2%)
+2026-05-12 17:51:08,689 [INFO] prefect.task_runs —     [Applications / App_SIRH] 19 anomalie(s) / 366 lignes (5.2%)
+2026-05-12 17:51:08,689 [INFO] master_pipeline — [IF] 152 anomalies / 2928 observations
+2026-05-12 17:51:08,692 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:08,693 [INFO] master_pipeline — [ZScore] ZScore Detector
+2026-05-12 17:51:08,698 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] === Démarrage détection tous domaines ===
+2026-05-12 17:51:08,707 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_infrastructure chargé depuis SQL Server (1098 lignes)
+2026-05-12 17:51:08,853 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Infrastructure → 5490 observations (135 ROUGE, 207 AMBRE, 5148 VERT)
+2026-05-12 17:51:08,854 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ infra : 5490 lignes générées
+2026-05-12 17:51:08,859 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_itsm chargé depuis SQL Server (366 lignes)
+2026-05-12 17:51:08,906 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ITSM → 1830 observations (268 ROUGE, 63 AMBRE, 1499 VERT)
+2026-05-12 17:51:08,906 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ itsm : 1830 lignes générées
+2026-05-12 17:51:08,913 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_cybersecurity chargé depuis SQL Server (366 lignes)
+2026-05-12 17:51:08,963 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Cybersécurité → 1830 observations (79 ROUGE, 619 AMBRE, 1132 VERT)
+2026-05-12 17:51:08,963 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ cybersec : 1830 lignes générées
+2026-05-12 17:51:08,970 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_applications chargé depuis SQL Server (1098 lignes)
+2026-05-12 17:51:09,056 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Applications → 3294 observations (103 ROUGE, 582 AMBRE, 2609 VERT)
+2026-05-12 17:51:09,056 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ apps : 3294 lignes générées
+2026-05-12 17:51:09,062 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_itam chargé depuis SQL Server (12 lignes)
+2026-05-12 17:51:09,064 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ITAM → 24 observations (0 ROUGE, 1 AMBRE, 23 VERT)
+2026-05-12 17:51:09,065 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ itam : 24 lignes générées
+2026-05-12 17:51:09,071 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_parc_auto chargé depuis SQL Server (366 lignes)
+2026-05-12 17:51:09,092 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Parc_Auto → 732 observations (167 ROUGE, 151 AMBRE, 414 VERT)
+2026-05-12 17:51:09,092 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ parc_auto : 732 lignes générées
+2026-05-12 17:51:09,097 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_maintenance chargé depuis SQL Server (12 lignes)
+2026-05-12 17:51:09,099 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Maintenance → 24 observations (2 ROUGE, 8 AMBRE, 14 VERT)
+2026-05-12 17:51:09,100 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ maintenance : 24 lignes générées
+2026-05-12 17:51:09,105 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Silver.silver_gouvernance chargé depuis SQL Server (48 lignes)
+2026-05-12 17:51:09,113 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Gouvernance → 144 observations (5 ROUGE, 19 AMBRE, 120 VERT)
+2026-05-12 17:51:09,113 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] ✓ gouvernance : 144 lignes générées
+2026-05-12 17:51:09,113 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] === Détection terminée ===
+2026-05-12 17:51:09,117 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] Sauvegarde 2409 anomalies (ROUGE+AMBRE)
+2026-05-12 17:51:09,117 [INFO] ml.anomaly_detection.zscore_detector — [ZScore] --dry-run activé : aucune écriture SQL/CSV.
+2026-05-12 17:51:09,121 [INFO] prefect.task_runs —          DateKey         Domaine ServerName Application_Name  Anomalie_IF  Score_IF  Score_Confiance      Features
+1354  2026-01-01  Infrastructure  SRV-DB-01             None            1       NaN           0.6020  Disk_Max_Pct
+1355  2026-01-02  Infrastructure  SRV-DB-01             None            1       NaN           0.6022  Disk_Max_Pct
+1356  2026-01-03  Infrastructure  SRV-DB-01             None            1       NaN           0.6026  Disk_Max_Pct
+1357  2026-01-04  Infrastructure  SRV-DB-01             None            1       NaN           0.6300  Disk_Max_Pct
+1358  2026-01-05  Infrastructure  SRV-DB-01             None            1       NaN           0.6164  Disk_Max_Pct
+1359  2026-01-06  Infrastructure  SRV-DB-01             None            1       NaN           0.6182  Disk_Max_Pct
+1360  2026-01-07  Infrastructure  SRV-DB-01             None            1       NaN           0.6378  Disk_Max_Pct
+1361  2026-01-08  Infrastructure  SRV-DB-01             None            1       NaN           0.6310  Disk_Max_Pct
+1362  2026-01-09  Infrastructure  SRV-DB-01             None            1       NaN           0.6378  Disk_Max_Pct
+1363  2026-01-10  Infrastructure  SRV-DB-01             None            1       NaN           0.6206  Disk_Max_Pct
+2026-05-12 17:51:09,122 [INFO] master_pipeline — [ZScore] 2409 alertes sauvegardées
+2026-05-12 17:51:09,122 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:09,124 [INFO] master_pipeline — [Prophet] Prophet Forecaster
+2026-05-12 17:51:09,335 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/logs/ "HTTP/1.1 201 Created"
+2026-05-12 17:51:09,365 [ERROR] prophet.plot — Importing plotly failed. Interactive plots will not work.
+2026-05-12 17:51:09,370 [INFO] ml.forecasting.prophet_forecaster — ProphetForecaster — source : SQL Server (Dashboard360_Bronze)
+2026-05-12 17:51:09,370 [INFO] ml.forecasting.prophet_forecaster — ══════════════════════════════════════════
+2026-05-12 17:51:09,370 [INFO] ml.forecasting.prophet_forecaster —   Prophet Forecaster — Dashboard 360 Novec
+2026-05-12 17:51:09,370 [INFO] ml.forecasting.prophet_forecaster — ══════════════════════════════════════════
+2026-05-12 17:51:09,370 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : INFRA
+2026-05-12 17:51:09,370 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_infrastructure
+2026-05-12 17:51:09,382 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_infrastructure chargé depuis SQL (1098 lignes)
+2026-05-12 17:51:09,442 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:09,492 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:09,550 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-DB-01::Disk_Moyen_Pct → 90 jours prédits | RAG Rouge : 221 pts
+2026-05-12 17:51:09,595 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:09,619 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:09,666 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-DB-01::Latence_Moyenne_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:09,753 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-DB-01::Disponibilite_Pct → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:09,793 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:09,849 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:09,905 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-ERP-01::Disk_Moyen_Pct → 90 jours prédits | RAG Rouge : 221 pts
+2026-05-12 17:51:09,949 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:09,967 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:10,015 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-ERP-01::Latence_Moyenne_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:10,059 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:10,085 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:10,134 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-ERP-01::Disponibilite_Pct → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:10,178 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:10,210 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:10,265 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-WEB-PME::Disk_Moyen_Pct → 90 jours prédits | RAG Rouge : 221 pts
+2026-05-12 17:51:10,312 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:10,332 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:10,380 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-WEB-PME::Latence_Moyenne_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:10,427 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:10,454 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:10,503 [INFO] ml.forecasting.prophet_forecaster —   ✓ SRV-WEB-PME::Disponibilite_Pct → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:10,504 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : ITSM
+2026-05-12 17:51:10,504 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_itsm
+2026-05-12 17:51:10,509 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_itsm chargé depuis SQL (366 lignes)
+2026-05-12 17:51:10,555 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:10,574 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:10,619 [INFO] ml.forecasting.prophet_forecaster —   ✓ ITSM::Volume_Total → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:10,665 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:10,706 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:10,755 [INFO] ml.forecasting.prophet_forecaster —   ✓ ITSM::Backlog_Total → 14 jours prédits | RAG Rouge : 275 pts
+2026-05-12 17:51:10,755 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : CYBERSEC
+2026-05-12 17:51:10,756 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_cybersecurity
+2026-05-12 17:51:10,760 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_cybersecurity chargé depuis SQL (366 lignes)
+2026-05-12 17:51:10,882 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:10,904 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:10,959 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersec::MFA_Adoption_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:11,004 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,021 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,080 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersec::Taux_Phishing_Moyen_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:11,125 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,140 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,198 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersec::RGPD_Conformite_Pct → 90 jours prédits | RAG Rouge : 338 pts
+2026-05-12 17:51:11,238 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,261 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,317 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersec::Systemes_Patches_Moyen_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:11,318 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : ITAM
+2026-05-12 17:51:11,318 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_itam
+2026-05-12 17:51:11,321 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_itam chargé depuis SQL (12 lignes)
+2026-05-12 17:51:11,364 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:11,365 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,391 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,411 [INFO] ml.forecasting.prophet_forecaster —   ✓ ITAM::Vetuste_Moyen_Pct → 6 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:11,447 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:11,455 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,493 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,514 [INFO] ml.forecasting.prophet_forecaster —   ✓ ITAM::CMDB_Couverture_Pct → 6 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:11,515 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : APPS
+2026-05-12 17:51:11,515 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_applications
+2026-05-12 17:51:11,524 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_applications chargé depuis SQL (1098 lignes)
+2026-05-12 17:51:11,567 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,582 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,634 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Compta::Adoption_PowerBI_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:11,680 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,698 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,746 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Compta::Temps_Reponse_Moyen_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:11,790 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,806 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,859 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Compta::Qualite_Donnees_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:11,904 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:11,924 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:11,978 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Core_Metier::Adoption_PowerBI_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,023 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,042 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,092 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Core_Metier::Temps_Reponse_Moyen_ms → 7 jours prédits | RAG Rouge : 45 pts
+2026-05-12 17:51:12,132 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,147 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,206 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_Core_Metier::Qualite_Donnees_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,245 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,266 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,323 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_SIRH::Adoption_PowerBI_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,368 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,388 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,433 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_SIRH::Temps_Reponse_Moyen_ms → 7 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,479 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,496 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,556 [INFO] ml.forecasting.prophet_forecaster —   ✓ App_SIRH::Qualite_Donnees_Pct → 90 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,556 [INFO] ml.forecasting.prophet_forecaster — ── Domaine : GOUVERNANCE
+2026-05-12 17:51:12,556 [INFO] ml.forecasting.prophet_forecaster —   SQL → Silver.silver_gouvernance
+2026-05-12 17:51:12,562 [INFO] ml.forecasting.prophet_forecaster —   ✓ Silver.silver_gouvernance chargé depuis SQL (48 lignes)
+2026-05-12 17:51:12,604 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:12,607 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,635 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,655 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersecurité::Adoption_Digital_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,695 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:12,696 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,721 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,738 [INFO] ml.forecasting.prophet_forecaster —   ✓ Cybersecurité::Ecart_Budget_Moyen_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,783 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:12,786 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,813 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,832 [INFO] ml.forecasting.prophet_forecaster —   ✓ Data::Adoption_Digital_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,874 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:12,876 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,898 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:12,914 [INFO] ml.forecasting.prophet_forecaster —   ✓ Data::Ecart_Budget_Moyen_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:12,960 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:12,962 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:12,988 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:13,009 [INFO] ml.forecasting.prophet_forecaster —   ✓ IT-Operations::Adoption_Digital_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:13,050 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:13,053 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:13,085 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:13,106 [INFO] ml.forecasting.prophet_forecaster —   ✓ IT-Operations::Ecart_Budget_Moyen_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:13,147 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:13,148 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:13,178 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:13,197 [INFO] ml.forecasting.prophet_forecaster —   ✓ Projets::Adoption_Digital_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:13,241 [INFO] prophet — n_changepoints greater than number of observations. Using 8.
+2026-05-12 17:51:13,245 [INFO] cmdstanpy — Chain [1] start processing
+2026-05-12 17:51:13,266 [INFO] cmdstanpy — Chain [1] done processing
+2026-05-12 17:51:13,286 [INFO] ml.forecasting.prophet_forecaster —   ✓ Projets::Ecart_Budget_Moyen_Pct → 3 jours prédits | RAG Rouge : 0 pts
+2026-05-12 17:51:13,304 [INFO] ml.forecasting.prophet_forecaster — ══════════════════════════════════════════
+2026-05-12 17:51:13,304 [INFO] ml.forecasting.prophet_forecaster —   infra           →   3606 lignes
+2026-05-12 17:51:13,304 [INFO] ml.forecasting.prophet_forecaster —   itsm            →    753 lignes
+2026-05-12 17:51:13,304 [INFO] ml.forecasting.prophet_forecaster —   cybersec        →   1824 lignes
+2026-05-12 17:51:13,305 [INFO] ml.forecasting.prophet_forecaster —   itam            →     36 lignes
+2026-05-12 17:51:13,305 [INFO] ml.forecasting.prophet_forecaster —   apps            →   3855 lignes
+2026-05-12 17:51:13,305 [INFO] ml.forecasting.prophet_forecaster —   gouvernance     →    120 lignes
+2026-05-12 17:51:13,305 [INFO] ml.forecasting.prophet_forecaster —   alerts          →      8 lignes
+2026-05-12 17:51:13,305 [INFO] ml.forecasting.prophet_forecaster — ══════════════════════════════════════════
+2026-05-12 17:51:13,305 [INFO] master_pipeline — [Prophet] 10194 prédictions
+2026-05-12 17:51:13,306 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:13,308 [INFO] master_pipeline — [ARIMA] ARIMA Forecaster
+2026-05-12 17:51:13,447 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/logs/ "HTTP/1.1 201 Created"
+2026-05-12 17:51:13,571 [INFO] ml.forecasting.arima_forecaster — [ARIMA] === Démarrage prédictions ARIMA (6 configs) ===
+2026-05-12 17:51:13,575 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Table Gold.forecast_maintenance vérifiée/créée
+2026-05-12 17:51:13,577 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Table Gold.forecast_parc_auto vérifiée/créée
+2026-05-12 17:51:13,596 [INFO] ml.forecasting.arima_forecaster — [ARIMA] GroupKey vérifié/ajouté sur Gold.forecast_maintenance
+2026-05-12 17:51:13,617 [INFO] ml.forecasting.arima_forecaster — [ARIMA] GroupKey vérifié/ajouté sur Gold.forecast_parc_auto
+2026-05-12 17:51:13,637 [INFO] ml.forecasting.arima_forecaster — [ARIMA] GroupKey vérifié/ajouté sur Gold.forecast_gouvernance
+2026-05-12 17:51:13,656 [INFO] ml.forecasting.arima_forecaster — [ARIMA] GroupKey vérifié/ajouté sur Gold.forecast_itam
+2026-05-12 17:51:13,659 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → itam / TCO_Moyen_Par_Poste_MAD (horizon=3)
+2026-05-12 17:51:13,662 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_itam chargé (12 lignes)
+2026-05-12 17:51:14,113 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   itam/TCO_Moyen_Par_Poste_MAD → 15 lignes
+2026-05-12 17:51:14,113 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → itam / Conformite_Licences_Pct (horizon=6)
+2026-05-12 17:51:14,115 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_itam chargé (12 lignes)
+2026-05-12 17:51:15,459 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   itam/Conformite_Licences_Pct → 18 lignes
+2026-05-12 17:51:15,459 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → maintenance / Ratio_Preventif_Pct (horizon=3)
+2026-05-12 17:51:15,462 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_maintenance chargé (12 lignes)
+2026-05-12 17:51:16,645 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   maintenance/Ratio_Preventif_Pct → 15 lignes
+2026-05-12 17:51:16,645 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → maintenance / Total_Ruptures_Stock (horizon=3)
+2026-05-12 17:51:16,649 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_maintenance chargé (12 lignes)
+2026-05-12 17:51:17,027 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   maintenance/Total_Ruptures_Stock → 15 lignes
+2026-05-12 17:51:17,027 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → parc_auto / Taux_Sinistralite_Pct (horizon=1)
+2026-05-12 17:51:17,030 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_parc_auto chargé (366 lignes)
+2026-05-12 17:51:17,571 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   parc_auto/Taux_Sinistralite_Pct → 14 lignes
+2026-05-12 17:51:17,571 [INFO] ml.forecasting.arima_forecaster — [ARIMA] → gouvernance / Cout_IT_Par_Employe_MAD (horizon=6)
+2026-05-12 17:51:17,576 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Silver.silver_gouvernance chargé (48 lignes)
+2026-05-12 17:51:18,215 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   gouvernance/Cout_IT_Par_Employe_MAD/Cybersecurité → 18 lignes
+2026-05-12 17:51:18,757 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   gouvernance/Cout_IT_Par_Employe_MAD/Data → 18 lignes
+2026-05-12 17:51:19,762 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   gouvernance/Cout_IT_Par_Employe_MAD/IT-Operations → 18 lignes
+2026-05-12 17:51:20,439 [INFO] ml.forecasting.arima_forecaster — [ARIMA]   gouvernance/Cout_IT_Par_Employe_MAD/Projets → 18 lignes
+2026-05-12 17:51:20,440 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_itam : 33 lignes totales
+2026-05-12 17:51:20,440 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_parc_auto : 14 lignes totales
+2026-05-12 17:51:20,441 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_maintenance : 30 lignes totales
+2026-05-12 17:51:20,442 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_gouvernance : 72 lignes totales
+2026-05-12 17:51:20,442 [INFO] ml.forecasting.arima_forecaster — [ARIMA] === Prédictions ARIMA terminées ===
+2026-05-12 17:51:20,442 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_infra : vide — ignoré
+2026-05-12 17:51:20,443 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_itsm : vide — ignoré
+2026-05-12 17:51:20,443 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_cybersec : vide — ignoré
+2026-05-12 17:51:20,443 [INFO] ml.forecasting.arima_forecaster — [ARIMA] Gold.forecast_apps : vide — ignoré
+2026-05-12 17:51:20,443 [INFO] ml.forecasting.arima_forecaster — [ARIMA] --dry-run : Gold.forecast_itam → 33 lignes (non écrites)
+2026-05-12 17:51:20,443 [INFO] prefect.task_runs — 
+--- Gold.forecast_itam (33 lignes) ---
+2026-05-12 17:51:20,447 [INFO] prefect.task_runs —                        KPI          DS     Yhat  Yhat_Lower  Yhat_Upper Trend Trend_Lower Trend_Upper  Is_Forecast Statut_RAG  Risk_Score Source_Modele                Date_Calcul GroupKey
+0  TCO_Moyen_Par_Poste_MAD  2025-05-01  8152.43         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:13.665413     None
+1  TCO_Moyen_Par_Poste_MAD  2025-06-01  7760.83         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:13.665413     None
+2  TCO_Moyen_Par_Poste_MAD  2025-07-01  8168.36         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:13.665413     None
+3  TCO_Moyen_Par_Poste_MAD  2025-08-01  7548.56         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:13.665413     None
+4  TCO_Moyen_Par_Poste_MAD  2025-09-01  8164.23         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:13.665413     None
+2026-05-12 17:51:20,447 [INFO] ml.forecasting.arima_forecaster — [ARIMA] --dry-run : Gold.forecast_parc_auto → 14 lignes (non écrites)
+2026-05-12 17:51:20,448 [INFO] prefect.task_runs — 
+--- Gold.forecast_parc_auto (14 lignes) ---
+2026-05-12 17:51:20,450 [INFO] prefect.task_runs —                      KPI          DS    Yhat  Yhat_Lower  Yhat_Upper Trend Trend_Lower Trend_Upper  Is_Forecast Statut_RAG  Risk_Score Source_Modele                Date_Calcul GroupKey
+0  Taux_Sinistralite_Pct  2025-04-01  0.0609         NaN         NaN  None        None        None            0       VERT      0.0081         ARIMA 2026-05-12 16:51:17.032467     None
+1  Taux_Sinistralite_Pct  2025-05-01  0.0865         NaN         NaN  None        None        None            0       VERT      0.0115         ARIMA 2026-05-12 16:51:17.032467     None
+2  Taux_Sinistralite_Pct  2025-06-01  0.0893         NaN         NaN  None        None        None            0       VERT      0.0119         ARIMA 2026-05-12 16:51:17.032467     None
+3  Taux_Sinistralite_Pct  2025-07-01  0.1081         NaN         NaN  None        None        None            0       VERT      0.0144         ARIMA 2026-05-12 16:51:17.032467     None
+4  Taux_Sinistralite_Pct  2025-08-01  0.0865         NaN         NaN  None        None        None            0       VERT      0.0115         ARIMA 2026-05-12 16:51:17.032467     None
+2026-05-12 17:51:20,450 [INFO] ml.forecasting.arima_forecaster — [ARIMA] --dry-run : Gold.forecast_maintenance → 30 lignes (non écrites)
+2026-05-12 17:51:20,450 [INFO] prefect.task_runs — 
+--- Gold.forecast_maintenance (30 lignes) ---
+2026-05-12 17:51:20,452 [INFO] prefect.task_runs —                    KPI          DS   Yhat  Yhat_Lower  Yhat_Upper Trend Trend_Lower Trend_Upper  Is_Forecast Statut_RAG  Risk_Score Source_Modele                Date_Calcul GroupKey
+0  Ratio_Preventif_Pct  2025-05-01  75.20         NaN         NaN  None        None        None            0       VERT      0.0000         ARIMA 2026-05-12 16:51:15.463313     None
+1  Ratio_Preventif_Pct  2025-06-01  66.42         NaN         NaN  None        None        None            0      AMBRE      0.5074         ARIMA 2026-05-12 16:51:15.463313     None
+2  Ratio_Preventif_Pct  2025-07-01  72.22         NaN         NaN  None        None        None            0       VERT      0.0000         ARIMA 2026-05-12 16:51:15.463313     None
+3  Ratio_Preventif_Pct  2025-08-01  77.87         NaN         NaN  None        None        None            0       VERT      0.0000         ARIMA 2026-05-12 16:51:15.463313     None
+4  Ratio_Preventif_Pct  2025-09-01  69.49         NaN         NaN  None        None        None            0      AMBRE      0.4153         ARIMA 2026-05-12 16:51:15.463313     None
+2026-05-12 17:51:20,453 [INFO] ml.forecasting.arima_forecaster — [ARIMA] --dry-run : Gold.forecast_gouvernance → 72 lignes (non écrites)
+2026-05-12 17:51:20,453 [INFO] prefect.task_runs — 
+--- Gold.forecast_gouvernance (72 lignes) ---
+2026-05-12 17:51:20,455 [INFO] prefect.task_runs —                        KPI          DS      Yhat  Yhat_Lower  Yhat_Upper Trend Trend_Lower Trend_Upper  Is_Forecast Statut_RAG  Risk_Score Source_Modele                Date_Calcul       GroupKey
+0  Cout_IT_Par_Employe_MAD  2025-05-01  11590.19         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:17.578586  Cybersecurité
+1  Cout_IT_Par_Employe_MAD  2025-06-01   8819.62         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:17.578586  Cybersecurité
+2  Cout_IT_Par_Employe_MAD  2025-07-01  10519.98         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:17.578586  Cybersecurité
+3  Cout_IT_Par_Employe_MAD  2025-08-01   9269.87         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:17.578586  Cybersecurité
+4  Cout_IT_Par_Employe_MAD  2025-09-01   8782.47         NaN         NaN  None        None        None            0       VERT         0.1         ARIMA 2026-05-12 16:51:17.578586  Cybersecurité
+2026-05-12 17:51:20,456 [INFO] master_pipeline — [ARIMA] 149 prédictions sauvegardées
+2026-05-12 17:51:20,458 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:20,460 [INFO] master_pipeline — [RiskScore] IT Risk Score
+2026-05-12 17:51:20,462 [INFO] ml.scoring.it_risk_score — [RiskScore] === Calcul IT Risk Score pour 2026-05-12 ===
+2026-05-12 17:51:20,463 [INFO] ml.scoring.it_risk_score — [RiskScore] Chargement Gold.anomalies_detected...
+2026-05-12 17:51:20,491 [INFO] ml.scoring.it_risk_score — [RiskScore] Aucune anomalie aujourd'hui → dernière date disponible
+2026-05-12 17:51:20,522 [INFO] ml.scoring.it_risk_score — [RiskScore] 27 anomalies chargées (date: 2026-04-20)
+2026-05-12 17:51:20,524 [INFO] ml.scoring.it_risk_score — [RiskScore] 27 lignes anomalies chargées
+2026-05-12 17:51:20,524 [INFO] ml.scoring.it_risk_score — [RiskScore] Chargement Gold.prophet_alerts...
+2026-05-12 17:51:20,535 [INFO] ml.scoring.it_risk_score — [RiskScore] 24 alertes Prophet actives
+2026-05-12 17:51:20,535 [INFO] ml.scoring.it_risk_score — [RiskScore] Chargement forecast tables (Is_Forecast=1)...
+2026-05-12 17:51:20,646 [INFO] ml.scoring.it_risk_score — [RiskScore] 424 prédictions non-VERT trouvées
+2026-05-12 17:51:20,651 [INFO] ml.scoring.it_risk_score — [RiskScore] Composantes → A: {'Infrastructure': 100.0, 'Cybersécurité': 100.0, 'ITSM': 100.0, 'Applications': 100.0, 'ITAM': 0.0, 'Gouvernance': 0.0} | K: {'Infrastructure': 100.0, 'Cybersécurité': 41.5, 'ITSM': 100.0, 'Applications': 49.1, 'ITAM': 0.0, 'Gouvernance': 3.7} | P: {'Infrastructure': 100.0, 'Cybersécurité': 43.0, 'ITSM': 100.0, 'Applications': 52.5, 'ITAM': 0.0, 'Gouvernance': 40.3}
+2026-05-12 17:51:20,652 [INFO] ml.scoring.it_risk_score — [RiskScore] Score_Global=73.9 | RAG=ROUGE | Anomalies=24 | Alertes Rouge=12
+2026-05-12 17:51:20,652 [INFO] ml.scoring.it_risk_score — [RiskScore] --dry-run : aucune écriture en base.
+2026-05-12 17:51:20,652 [INFO] prefect.task_runs — 
+2026-05-12 17:51:20,653 [INFO] prefect.task_runs — ============================================================
+2026-05-12 17:51:20,653 [INFO] prefect.task_runs —   IT RISK SCORE — Dashboard 360° Novec
+2026-05-12 17:51:20,655 [INFO] prefect.task_runs — ============================================================
+2026-05-12 17:51:20,655 [INFO] prefect.task_runs —   🔴 Score Global   : 73.9 / 100  [ROUGE]
+2026-05-12 17:51:20,656 [INFO] prefect.task_runs —   Date             : 2026-05-12
+2026-05-12 17:51:20,656 [INFO] prefect.task_runs — 
+2026-05-12 17:51:20,657 [INFO] prefect.task_runs —   🔴 Infrastructure       : 100.0  (poids 30%)
+2026-05-12 17:51:20,657 [INFO] prefect.task_runs —   🔴 ITSM                 : 100.0  (poids 20%)
+2026-05-12 17:51:20,658 [INFO] prefect.task_runs —   🟡 Cybersécurité        :  65.3  (poids 25%)
+2026-05-12 17:51:20,658 [INFO] prefect.task_runs —   🔴 Applications         :  70.3  (poids 10%)
+2026-05-12 17:51:20,658 [INFO] prefect.task_runs —   🟢 ITAM                 :   0.0  (poids 10%)
+2026-05-12 17:51:20,658 [INFO] prefect.task_runs —   🟢 Gouvernance          :  11.4  (poids 5%)
+2026-05-12 17:51:20,659 [INFO] prefect.task_runs — 
+2026-05-12 17:51:20,659 [INFO] prefect.task_runs —   Anomalies détectées  : 24
+2026-05-12 17:51:20,659 [INFO] prefect.task_runs —   Alertes ROUGE        : 12
+2026-05-12 17:51:20,660 [INFO] prefect.task_runs —   Alertes AMBRE        : 12
+2026-05-12 17:51:20,660 [INFO] prefect.task_runs — 
+2026-05-12 17:51:20,661 [INFO] prefect.task_runs —   Top contributeurs :
+2026-05-12 17:51:20,661 [INFO] prefect.task_runs —     • Infrastructure       [anomalies      ] → 30.0 pts
+2026-05-12 17:51:20,662 [INFO] prefect.task_runs —     • Infrastructure       [prophet_alerts ] → 30.0 pts
+2026-05-12 17:51:20,662 [INFO] prefect.task_runs —     • Infrastructure       [forecast       ] → 30.0 pts
+2026-05-12 17:51:20,662 [INFO] prefect.task_runs — ============================================================
+2026-05-12 17:51:20,663 [INFO] master_pipeline — [RiskScore] Score=73.9 RAG=ROUGE
+2026-05-12 17:51:20,665 [INFO] prefect.task_runs — Finished in state Completed()
+2026-05-12 17:51:20,665 [INFO] prefect.flow_runs — 
+2026-05-12 17:51:20,665 [INFO] prefect.flow_runs — ════════════════════════════════════════════════════════════════════
+2026-05-12 17:51:20,666 [INFO] prefect.flow_runs —   NOVEC_FULL_INIT
+2026-05-12 17:51:20,666 [INFO] prefect.flow_runs —   ✅ SUCCESS    │ Run: d508ed01 │ Durée: 15s
+2026-05-12 17:51:20,666 [INFO] prefect.flow_runs — ════════════════════════════════════════════════════════════════════
+2026-05-12 17:51:20,667 [INFO] prefect.flow_runs —   ✅  Génération Bronze — Infrastructure (backfill)
+2026-05-12 17:51:20,667 [INFO] prefect.flow_runs —   ✅  Génération Bronze — Parc Auto (horaire)
+2026-05-12 17:51:20,667 [INFO] prefect.flow_runs —   ✅  Génération Bronze — ITSM / Cyber / Apps (quotidien)
+2026-05-12 17:51:20,668 [INFO] prefect.flow_runs —   ✅  Génération Bronze — ITAM / Maintenance / Gouvernance (mensuel)
+2026-05-12 17:51:20,668 [INFO] prefect.flow_runs —   ✅  Validation Bronze
+2026-05-12 17:51:20,668 [INFO] prefect.flow_runs —   ✅  Transformation Bronze→Silver (quotidien)
+2026-05-12 17:51:20,669 [INFO] prefect.flow_runs —   ✅  Isolation Forest
+2026-05-12 17:51:20,669 [INFO] prefect.flow_runs —   ✅  ZScore Detector
+2026-05-12 17:51:20,669 [INFO] prefect.flow_runs —   ✅  Prophet Forecaster
+2026-05-12 17:51:20,669 [INFO] prefect.flow_runs —   ✅  ARIMA Forecaster
+2026-05-12 17:51:20,671 [INFO] prefect.flow_runs —   ✅  IT Risk Score
+2026-05-12 17:51:20,671 [INFO] prefect.flow_runs — 
+2026-05-12 17:51:20,672 [INFO] prefect.flow_runs —   ── Métriques ──────────────────────────────────────────────
+2026-05-12 17:51:20,672 [INFO] prefect.flow_runs —   Domaines validés             :        8
+2026-05-12 17:51:20,672 [INFO] prefect.flow_runs —   Domaines transformés         :        8
+2026-05-12 17:51:20,672 [INFO] prefect.flow_runs —   IF anomalies détectées       :      152
+2026-05-12 17:51:20,673 [INFO] prefect.flow_runs —   ZScore alertes (R/A)         :     2409
+2026-05-12 17:51:20,673 [INFO] prefect.flow_runs —   Prophet prédictions          :    10194
+2026-05-12 17:51:20,674 [INFO] prefect.flow_runs —   ARIMA prédictions            :      149
+2026-05-12 17:51:20,674 [INFO] prefect.flow_runs —   IT Risk Score global         :   73.9/100  🔴 ROUGE
+2026-05-12 17:51:20,674 [INFO] prefect.flow_runs — ════════════════════════════════════════════════════════════════════
+2026-05-12 17:51:20,674 [INFO] master_pipeline — [novec_full_init] Run d508ed01 — SUCCESS — durée 15s
+2026-05-12 17:51:21,024 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/flow_runs/41e63cef-8a00-4cab-bf6f-b527e92dc82b/set_state "HTTP/1.1 201 Created"
+2026-05-12 17:51:21,574 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/logs/ "HTTP/1.1 201 Created"
+2026-05-12 17:51:21,997 [INFO] prefect.flow_runs — Finished in state Completed()
+2026-05-12 17:51:22,271 [INFO] httpx — HTTP Request: POST http://127.0.0.1:4200/api/logs/ "HTTP/1.1 201 Created"

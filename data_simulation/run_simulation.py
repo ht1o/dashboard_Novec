@@ -47,20 +47,35 @@ class OrchestratorSimulator:
             os.makedirs(OUTPUT_DIR)
 
     def save_data(self, df, table_name):
-        """Sauvegarde dans SQL Server si possible, sinon en CSV."""
+        """Sauvegarde dans SQL Server si possible, sinon en CSV.
+        Pour les tables à haute fréquence (infra), supprime d'abord 
+        les lignes existantes dans la même fenêtre temporelle.
+        """
         if self.engine is not None:
-            try:
-                print(f"  → Insertion SQL Server (table: Bronze.staging_{table_name})...")
-                df.to_sql(f'staging_{table_name}', con=self.engine, schema='Bronze', if_exists='append', index=False)
-                print(f"  ✅ {len(df)} lignes insérées avec succès.")
-                return
-            except Exception as e:
-                print(f"  ⚠️ Échec SQL: {e}")
-        
-        # Fallback CSV
+           try:
+            # Anti-doublon pour infra (haute fréquence)
+              if table_name == "infrastructure" and "Timestamp" in df.columns:
+                from sqlalchemy import text
+                ts_min = df["Timestamp"].min()
+                ts_max = df["Timestamp"].max()
+                with self.engine.begin() as conn:
+                    conn.execute(text(
+                        "DELETE FROM Bronze.staging_infrastructure "
+                        "WHERE Timestamp BETWEEN :ts_min AND :ts_max"
+                    ), {"ts_min": str(ts_min), "ts_max": str(ts_max)})
+
+              print(f"  → Insertion SQL Server (table: Bronze.staging_{table_name})...")
+              df.to_sql(f'staging_{table_name}', con=self.engine, schema='Bronze', if_exists='append', index=False)
+              print(f"  ✅ {len(df)} lignes insérées avec succès.")
+              return
+           except Exception as e:
+            print(f"  ⚠️ Échec SQL: {e}")
+    
+    # Fallback CSV
         csv_path = os.path.join(OUTPUT_DIR, f"staging_{table_name}.csv")
         df.to_csv(csv_path, index=False)
         print(f"  📁 Fallback CSV: {csv_path} ({len(df)} lignes)")
+
 
     def _extract_daily_anomalies(self, df_infra):
         """
